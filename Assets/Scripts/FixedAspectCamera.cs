@@ -1,17 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Camera))]
 public sealed class FixedAspectCamera : MonoBehaviour
 {
     [SerializeField] private Vector2 _targetAspect = new Vector2(9f, 16f);
-    [SerializeField] private Color _barColor = Color.black;
     [SerializeField] private bool _keepOverlayCanvasesInsideCamera = true;
     [SerializeField] private float _canvasPlaneDistance = 1f;
     [SerializeField] private int _canvasSortingOrder = 1000;
-    [SerializeField] private Vector2 _uiReferenceResolution = new Vector2(540f, 960f);
-    [SerializeField, Range(0f, 1f)] private float _uiMatchWidthOrHeight = 0.5f;
-    [SerializeField] private string _scaledCanvasName = "ScoreCanvas";
 
     private Camera _camera;
     private int _lastScreenWidth;
@@ -32,12 +27,6 @@ public sealed class FixedAspectCamera : MonoBehaviour
         }
 
         ApplyAspect();
-        ApplyCanvasMode();
-    }
-
-    private void OnPreCull()
-    {
-        GL.Clear(true, true, _barColor);
     }
 
     private void OnValidate()
@@ -92,17 +81,6 @@ public sealed class FixedAspectCamera : MonoBehaviour
             canvas.planeDistance = _canvasPlaneDistance;
             canvas.overrideSorting = true;
             canvas.sortingOrder = _canvasSortingOrder;
-
-            CanvasScaler scaler = canvas.GetComponent<CanvasScaler>();
-            if (scaler == null || canvas.name != _scaledCanvasName)
-            {
-                continue;
-            }
-
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = _uiReferenceResolution;
-            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-            scaler.matchWidthOrHeight = _uiMatchWidthOrHeight;
         }
     }
 }
