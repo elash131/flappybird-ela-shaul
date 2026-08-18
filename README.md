@@ -22,6 +22,9 @@ and can show errors.
 4. In the **Project** window at the bottom, open `Assets/Scenes/MainScene.unity`.
 5. Press **Play**.
 
+The game is designed for a 9:16 portrait screen. Press **Play** - the camera
+locks to that ratio at runtime.
+
 Note: a fresh clone does not open the scene by itself, so step 4 is needed.
 The `Library` folder is not saved in Git, and that folder is what remembers
 the last open scene.
